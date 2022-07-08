@@ -14,7 +14,7 @@ namespace TripJournal.Data
                 .Build();
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            var connectionString = configs.GetConnectionString("SqlConnection");
+            var connectionString = "Server=.;Database=TripJournal;Trusted_Connection=True;MultipleActiveResultSets=true";
             builder.UseSqlServer(connectionString);
 
             return new ApplicationDbContext(builder.Options);
