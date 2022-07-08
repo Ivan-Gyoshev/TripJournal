@@ -18,9 +18,6 @@
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.6" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.6" />
 		<PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.6" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.6" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -28,6 +25,10 @@
 		<Content Remove="$(SpaRoot)**" />
 		<None Remove="$(SpaRoot)**" />
 		<None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\TripJournal.Data\TripJournal.Data.csproj" />
 	</ItemGroup>
 
 	<Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
