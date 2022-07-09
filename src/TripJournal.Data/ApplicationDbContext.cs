@@ -1,18 +1,22 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Duende.IdentityServer.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Reflection;
 using TripJournal.Contracts.Entities;
 using TripJournal.Data.DataModels;
 
 namespace TripJournal.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+
+    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         private static readonly MethodInfo SetIsDeletedQueryFilterAction = typeof(ApplicationDbContext)
             .GetMethod(nameof(SetIsDeletedFilter), BindingFlags.NonPublic | BindingFlags.Static);
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-           : base(options)
+        public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
+            : base(options, operationalStoreOptions)
         {
         }
 

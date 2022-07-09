@@ -1,3 +1,4 @@
+using Duende.IdentityServer.Stores;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using TripJournal.Contracts;
@@ -21,12 +22,17 @@ namespace TripJournal
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
               options.UseSqlServer(connectionString));
 
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
             builder.Services.AddDefaultIdentity<ApplicationUser>(UserCredentialsOptionsProvider.GetUserCredentialsOptions)
-                    .AddRoles<ApplicationRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             builder.Services.AddAuthentication()
                 .AddIdentityServerJwt();
+
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
@@ -45,10 +51,12 @@ namespace TripJournal
                 app.UseHsts();
 
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
+
             app.UseAuthentication();
-            //app.UseIdentityServer();
+            app.UseIdentityServer();
             app.UseAuthorization();
             app.MapControllerRoute(
                 name: "default",

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TripJournal.Controllers
+namespace TripJournal.Web.Controllers
 {
     public class OidcConfigurationController : Controller
     {

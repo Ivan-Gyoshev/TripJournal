@@ -8,7 +8,6 @@ namespace TripJournal.Data.DataModels
         public ApplicationUser()
         {
             Id = Guid.NewGuid().ToString();
-            Roles = new HashSet<IdentityUserRole<string>>();
             Claims = new HashSet<IdentityUserClaim<string>>();
             Logins = new HashSet<IdentityUserLogin<string>>();
         }
@@ -16,8 +15,6 @@ namespace TripJournal.Data.DataModels
         public DateTimeOffset CreatedOn { get; set; }
 
         public DateTimeOffset? ModifiedOn { get; set; }
-
-        public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
