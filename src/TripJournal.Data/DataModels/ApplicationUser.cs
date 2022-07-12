@@ -10,11 +10,14 @@ namespace TripJournal.Data.DataModels
             Id = Guid.NewGuid().ToString();
             Claims = new HashSet<IdentityUserClaim<string>>();
             Logins = new HashSet<IdentityUserLogin<string>>();
+            UserTrips = new List<Trip>();
         }
 
         public DateTimeOffset CreatedOn { get; set; }
 
         public DateTimeOffset? ModifiedOn { get; set; }
+
+        public List<Trip> UserTrips { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
