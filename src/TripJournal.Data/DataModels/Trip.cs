@@ -1,13 +1,13 @@
-﻿namespace TripJournal.Data.DataModels
+﻿using TripJournal.Contracts.Entities;
+
+namespace TripJournal.Data.DataModels
 {
-    public class Trip
+    public class Trip : BaseDeletableModel<int>
     {
         public Trip()
         {
             Participants = new List<ApplicationUser>();
         }
-
-        public int Id { get; set; }
 
         public string CreatorId { get; set; }
 
