@@ -5,4 +5,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\TripJournal.Contracts\TripJournal.Contracts.csproj" />
+	  <ProjectReference Include="..\TripJournal.Data\TripJournal.Data.csproj" />
+	</ItemGroup>
+
 </Project>
