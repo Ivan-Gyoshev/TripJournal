@@ -6,10 +6,10 @@ namespace TripJournal.Data.Repositories
     public class EfRepository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        public EfRepository(ApplicationDbContext context, DbSet<TEntity> dbSet)
+        public EfRepository(ApplicationDbContext context)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
-            DbSet = dbSet;
+            DbSet = Context.Set<TEntity>();
         }
 
         protected DbSet<TEntity> DbSet { get; set; }

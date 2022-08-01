@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TripJournal.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class CreateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -105,6 +105,30 @@ namespace TripJournal.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersistedGrants", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Trips",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatorId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    StartDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    DueDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trips", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,6 +237,35 @@ namespace TripJournal.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ApplicationUserTrip",
+                columns: table => new
+                {
+                    ParticipantsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserTripsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUserTrip", x => new { x.ParticipantsId, x.UserTripsId });
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserTrip_AspNetUsers_ParticipantsId",
+                        column: x => x.ParticipantsId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserTrip_Trips_UserTripsId",
+                        column: x => x.UserTripsId,
+                        principalTable: "Trips",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicationUserTrip_UserTripsId",
+                table: "ApplicationUserTrip",
+                column: "UserTripsId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -287,10 +340,18 @@ namespace TripJournal.Data.Migrations
                 name: "IX_PersistedGrants_SubjectId_SessionId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "SessionId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trips_IsDeleted",
+                table: "Trips",
+                column: "IsDeleted");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ApplicationUserTrip");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -314,6 +375,9 @@ namespace TripJournal.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "PersistedGrants");
+
+            migrationBuilder.DropTable(
+                name: "Trips");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

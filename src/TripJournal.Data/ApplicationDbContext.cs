@@ -20,6 +20,8 @@ namespace TripJournal.Data
         {
         }
 
+        public DbSet<Trip> Trips { get; set; }
+
         public override int SaveChanges() => base.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

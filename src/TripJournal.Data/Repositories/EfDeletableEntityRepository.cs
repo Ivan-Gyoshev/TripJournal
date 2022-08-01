@@ -7,8 +7,8 @@ namespace TripJournal.Data.Repositories
     public class EfDeletableEntityRepository<TEntity> : EfRepository<TEntity>, IDeletableEfRepository<TEntity>
         where TEntity : class, IDeletableEntity
     {
-        public EfDeletableEntityRepository(ApplicationDbContext context, DbSet<TEntity> dbSet)
-            : base(context, dbSet)
+        public EfDeletableEntityRepository(ApplicationDbContext context)
+            : base(context)
         {
         }
 

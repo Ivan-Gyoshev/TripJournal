@@ -12,8 +12,8 @@ using TripJournal.Data;
 namespace TripJournal.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220712045346_AddCreatorIdToTripModel")]
-    partial class AddCreatorIdToTripModel
+    [Migration("20220801043737_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -396,8 +396,14 @@ namespace TripJournal.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("CreatorId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("DeletedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -405,8 +411,14 @@ namespace TripJournal.Data.Migrations
                     b.Property<DateTimeOffset>("DueDate")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -422,7 +434,9 @@ namespace TripJournal.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Trip");
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Trips");
                 });
 
             modelBuilder.Entity("ApplicationUserTrip", b =>

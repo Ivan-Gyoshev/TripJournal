@@ -434,7 +434,7 @@ namespace TripJournal.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Trip");
+                    b.ToTable("Trips");
                 });
 
             modelBuilder.Entity("ApplicationUserTrip", b =>
