@@ -1,4 +1,5 @@
-﻿using TripJournal.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using TripJournal.Contracts;
 using TripJournal.Contracts.Repositories;
 using TripJournal.Data;
 using TripJournal.Data.DataModels;
@@ -33,6 +34,49 @@ namespace TripJournal.Services
 
             await _tripsRepository.AddAsync(trip).ConfigureAwait(false);
             await _tripsRepository.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task<Trip> GetTripById(int id)
+        {
+            var trip = await _tripsRepository.GetAll()
+                .Where(t => t.Id == id)
+                .FirstOrDefaultAsync()
+                .ConfigureAwait(false);
+
+            return trip;
+        }
+
+        public async Task<List<Trip>> GetAllTripsAsync()
+        {
+            List<Trip> trips = await _tripsRepository.GetAll().ToListAsync().ConfigureAwait(false);
+            return trips;
+        }
+
+        public async Task<List<Trip>> GetAllTripsForUser(string userId)
+        {
+            List<Trip> trips = await _tripsRepository.GetAll()
+                .Where(t => t.CreatorId.Equals(userId))
+                .ToListAsync()
+                .ConfigureAwait(false);
+
+            return trips;
+        }
+
+        public async Task<bool> SoftDeleteTrip(int tripId)
+        {
+            var trip = await GetTripById(tripId).ConfigureAwait(false);
+
+            if (trip is null)
+            {
+                return false;
+            }
+
+            trip.IsDeleted = true;
+            trip.DeletedOn = DateTime.UtcNow;
+
+            await _tripsRepository.SaveChangesAsync().ConfigureAwait(false);
+
+            return true;
         }
     }
 }

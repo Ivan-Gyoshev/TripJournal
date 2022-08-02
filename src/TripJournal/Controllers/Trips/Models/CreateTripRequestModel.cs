@@ -2,7 +2,7 @@
 {
     public class CreateTripRequestModel
     {
-        public string CreatorUserId { get; set; }
+        public string UserId { get; set; }
 
         public string Title { get; set; }
 
