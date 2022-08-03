@@ -21,10 +21,6 @@ namespace TripJournal.Data.DataModels
 
         public TripType Type { get; set; }
 
-        public DateTimeOffset StartDate { get; set; }
-
-        public DateTimeOffset DueDate { get; set; }
-
         public List<ApplicationUser> Participants { get; set; }
     }
 }

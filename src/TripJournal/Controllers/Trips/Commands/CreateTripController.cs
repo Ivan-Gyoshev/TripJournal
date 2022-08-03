@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TripJournal.Contracts;
+using TripJournal.Contracts.DTOs;
 using TripJournal.Services;
 using TripJournal.Web.Controllers.Trips.Models;
 
@@ -19,11 +20,11 @@ namespace TripJournal.Web.Controllers.Trips.Commands
         [HttpPost, Route("Create")]
         public async Task<IActionResult> Create([FromBody] CreateTripRequestModel model)
         {
-            var dto = new CreateTripDTO(model.UserId, model.Title, model.Location, model.Description, model.Price, model.Type, model.StartDate, model.DueDate);
+            var dto = new CreateTripDTO(model.UserId, model.Title, model.Location, model.Description, model.Price, model.Type);
 
-            await _databaseProvider.CreateTripAsync(dto).ConfigureAwait(false);
+            var trip = await _databaseProvider.CreateTripAsync(dto).ConfigureAwait(false);
 
-            return Accepted();
+            return Accepted(trip);
         }
     }
 }

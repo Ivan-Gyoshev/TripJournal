@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TripJournal.Contracts;
+using TripJournal.Contracts.DTOs;
 using TripJournal.Contracts.Repositories;
 using TripJournal.Data;
 using TripJournal.Data.DataModels;
@@ -16,9 +16,9 @@ namespace TripJournal.Services
             _tripsRepository = tripsRepository;
         }
 
-        public async Task CreateTripAsync(CreateTripDTO model)
+        public async Task<int> CreateTripAsync(CreateTripDTO model)
         {
-            Enum.TryParse(model.Type, out TripType type);
+            Enum.TryParse(model.Type, true, out TripType type);
 
             var trip = new Trip
             {
@@ -27,13 +27,29 @@ namespace TripJournal.Services
                 Location = model.Location,
                 Description = model.Description,
                 Price = model.Price,
-                Type = type,
-                StartDate = model.StartDate,
-                DueDate = model.DueDate,
+                Type = type
             };
 
             await _tripsRepository.AddAsync(trip).ConfigureAwait(false);
             await _tripsRepository.SaveChangesAsync().ConfigureAwait(false);
+
+            return trip.Id;
+        }
+
+        public async Task<int> EditTripAsync(EditTripDto trip)
+        {
+            var tripToEdit = await GetTripById(trip.TripId).ConfigureAwait(false);
+
+            Enum.TryParse(trip.Type, true, out TripType type);
+
+            tripToEdit.Title = trip.Title;
+            tripToEdit.Description = trip.Description;
+            tripToEdit.Location = trip.Location;
+            tripToEdit.Type = type;
+
+            await _tripsRepository.SaveChangesAsync().ConfigureAwait(false);
+
+            return trip.TripId;
         }
 
         public async Task<Trip> GetTripById(int id)

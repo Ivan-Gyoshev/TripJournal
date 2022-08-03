@@ -1,8 +1,8 @@
-﻿namespace TripJournal.Contracts
+﻿namespace TripJournal.Contracts.DTOs
 {
     public class CreateTripDTO
     {
-        public CreateTripDTO(string creatorId, string title, string location, string description, decimal price, string type, DateTimeOffset startDate, DateTimeOffset dueDate)
+        public CreateTripDTO(string creatorId, string title, string location, string description, decimal price, string type)
         {
             CreatorId = creatorId;
             Title = title;
@@ -10,8 +10,6 @@
             Description = description;
             Price = price;
             Type = type;
-            StartDate = startDate;
-            DueDate = dueDate;
         }
 
         public string CreatorId { get; private set; }
@@ -25,9 +23,5 @@
         public decimal Price { get; private set; }
 
         public string Type { get; private set; }
-
-        public DateTimeOffset StartDate { get; private set; }
-
-        public DateTimeOffset DueDate { get; set; }
     }
 }
