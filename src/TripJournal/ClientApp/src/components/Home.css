@@ -1,0 +1,41 @@
+.homescreen{
+    width: 100%;
+    padding: 0 auto;
+    margin: 0 auto;
+}
+
+.home-container {
+    padding: 0 auto;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    padding: 0 20px;
+    border-bottom: 3px solid white;
+    background: rgb(204, 204, 204);
+    background: rgba(204, 204, 204, 0.5);
+}
+
+.centered-sub {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;  
+    border-bottom: 3px solid white;
+    background: rgb(204, 204, 204);
+    background: rgba(204, 204, 204, 0.5);
+}
+  
