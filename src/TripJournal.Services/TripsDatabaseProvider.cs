@@ -26,7 +26,7 @@ namespace TripJournal.Services
                 Title = model.Title,
                 Location = model.Location,
                 Description = model.Description,
-                Price = model.Price,
+                ImageUrl = model.ImageUrl,
                 Type = type
             };
 

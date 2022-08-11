@@ -2,13 +2,13 @@
 {
     public class CreateTripDTO
     {
-        public CreateTripDTO(string creatorId, string title, string location, string description, decimal price, string type)
+        public CreateTripDTO(string creatorId, string title, string location, string description, string imageUrl, string type)
         {
             CreatorId = creatorId;
             Title = title;
             Location = location;
             Description = description;
-            Price = price;
+            ImageUrl = imageUrl;
             Type = type;
         }
 
@@ -20,7 +20,7 @@
 
         public string Description { get; private set; }
 
-        public decimal Price { get; private set; }
+        public string ImageUrl { get; private set; }
 
         public string Type { get; private set; }
     }
