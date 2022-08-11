@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TripJournal.Services;
+using TripJournal.Web.Controllers.Trips.Models.ResponseModel;
 
 namespace TripJournal.Web.Controllers.Trips.Queries
 {
@@ -18,7 +19,18 @@ namespace TripJournal.Web.Controllers.Trips.Queries
         {
             var trips = await _tripsProvider.GetAllTripsAsync().ConfigureAwait(false);
 
-            return Ok(trips);
+            List<AllTripsResponseModel> result = trips.Select(trip => new AllTripsResponseModel
+            {
+                Title = trip.Title,
+                Description = trip.Description,
+                ImageUrl = trip.ImageUrl,
+                Location = trip.Location,
+                Type = trip.Type.ToString()
+            })
+            .OrderBy(x => x.Title)
+            .ToList();
+
+            return Ok(result);
         }
     }
 }

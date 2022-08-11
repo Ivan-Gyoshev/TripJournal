@@ -3,9 +3,7 @@ import authService from '../components/api-authorization/AuthorizeService';
 const request = async (method, url, data) => {
     try {
         const token = await authService.getAccessToken();
-        const user = localStorage.getItem('auth');
-        const auth = JSON.parse(user || '{}');
-
+      
         let headers = {}
 
         if (token) {
