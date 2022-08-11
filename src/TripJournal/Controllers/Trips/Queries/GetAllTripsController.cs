@@ -3,8 +3,8 @@ using TripJournal.Services;
 
 namespace TripJournal.Web.Controllers.Trips.Queries
 {
-    [ApiController, Route("Trips")]
-    public class GetAllTripsController : ControllerBase
+    [Route("Trips")]
+    public class GetAllTripsController : ApiControllerBase
     {
         private readonly TripsDatabaseProvider _tripsProvider;
 

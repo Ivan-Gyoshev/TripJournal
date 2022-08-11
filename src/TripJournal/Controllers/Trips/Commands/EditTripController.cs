@@ -5,8 +5,8 @@ using TripJournal.Web.Controllers.Trips.Models;
 
 namespace TripJournal.Web.Controllers.Trips.Commands
 {
-    [ApiController, Route("Trips")]
-    public class EditTripController : ControllerBase
+    [Route("Trips")]
+    public class EditTripController : AuthorizedApiController
     {
         private readonly TripsDatabaseProvider _tripsProvider;
 

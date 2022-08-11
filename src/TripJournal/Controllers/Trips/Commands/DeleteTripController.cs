@@ -4,8 +4,8 @@ using TripJournal.Services;
 
 namespace TripJournal.Web.Controllers.Trips.Commands
 {
-    [ApiController, Route("Trips")]
-    public class DeleteTripController : ControllerBase
+    [Route("Trips")]
+    public class DeleteTripController : AuthorizedApiController
     {
         private readonly TripsDatabaseProvider _tripsProvider;
 

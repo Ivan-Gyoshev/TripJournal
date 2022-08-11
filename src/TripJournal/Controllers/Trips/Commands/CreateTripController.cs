@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TripJournal.Contracts;
+using System.Security.Claims;
 using TripJournal.Contracts.DTOs;
 using TripJournal.Services;
 using TripJournal.Web.Controllers.Trips.Models;
 
 namespace TripJournal.Web.Controllers.Trips.Commands
 {
-    [ApiController, Route("Trips")]
-
-    public class CreateTripController : ControllerBase
+    [Route("Trips")]
+    public class CreateTripController : AuthorizedApiController
     {
         private readonly TripsDatabaseProvider _databaseProvider;
 
@@ -20,7 +19,9 @@ namespace TripJournal.Web.Controllers.Trips.Commands
         [HttpPost, Route("Create")]
         public async Task<IActionResult> Create([FromBody] CreateTripRequestModel model)
         {
-            var dto = new CreateTripDTO(model.UserId, model.Title, model.Location, model.Description, model.Price, model.Type);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var dto = new CreateTripDTO(userId, model.Title, model.Location, model.Description, model.ImageUrl, model.Type);
 
             var trip = await _databaseProvider.CreateTripAsync(dto).ConfigureAwait(false);
 

@@ -4,8 +4,8 @@ using TripJournal.Services;
 
 namespace TripJournal.Web.Controllers.Trips.Queries
 {
-    [ApiController, Route("Trips")]
-    public class GetAllTripsForUserController : ControllerBase
+    [Route("Trips")]
+    public class GetAllTripsForUserController : AuthorizedApiController
     {
         private readonly TripsDatabaseProvider _tripsProvider;
 

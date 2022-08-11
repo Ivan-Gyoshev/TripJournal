@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using TripJournal.Contracts;
 using TripJournal.Contracts.Repositories;
 using TripJournal.Data;
@@ -21,7 +25,6 @@ namespace TripJournal.Web
         public void ConfigureServices(IServiceCollection services)
         {
             /// Service Registration
-
             var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -34,11 +37,14 @@ namespace TripJournal.Web
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthentication()
-                .AddIdentityServerJwt();
+                    .AddIdentityServerJwt();
 
+
+            services.AddCors();
+
+            services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddRazorPages();
-
 
             /// Scoped
             services.AddScoped(typeof(IDeletableEfRepository<>), typeof(EfDeletableEntityRepository<>));
@@ -63,6 +69,10 @@ namespace TripJournal.Web
                 app.UseHsts();
             }
 
+            app.ConfigureCors();
+
+            app.UseForwardedHeaders();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -71,6 +81,7 @@ namespace TripJournal.Web
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -78,6 +89,45 @@ namespace TripJournal.Web
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+    }
+
+    public static class CorsExtensions
+    {
+        public static IApplicationBuilder ConfigureCors(this IApplicationBuilder app)
+        {
+            IConfiguration configuration = app.ApplicationServices.GetRequiredService<IConfiguration>();
+
+            var headers = new string[]
+            {
+                "Accept",
+                "Content-Type",
+                "Origin",
+                "Authorization"
+            };
+
+            var methods = new string[]
+            {
+                "GET",
+                "PUT",
+                "POST",
+                "DELETE",
+                "OPTIONS"
+            };
+
+            var origins = new string[]
+            {
+                "https://localhost:44413"
+            };
+
+            app.UseCors(builder =>
+            {
+                if (headers is null == false) builder.WithHeaders(headers);
+                if (methods is null == false) builder.WithMethods(methods);
+                if (origins is null == false) builder.WithOrigins(origins);
+            });
+
+            return app;
         }
     }
 }
