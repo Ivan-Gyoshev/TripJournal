@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using TripJournal.Services;
 
 namespace TripJournal.Web.Controllers.Trips.Queries
@@ -15,8 +16,10 @@ namespace TripJournal.Web.Controllers.Trips.Queries
         }
 
         [HttpGet, Route("UserTrips")]
-        public async Task<IActionResult> GetTripsForUser([FromQuery, Required] string userId)
+        public async Task<IActionResult> GetTripsForUser()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var trips = await _tripsProvider.GetAllTripsForUser(userId).ConfigureAwait(false);
 
             return Ok(trips);

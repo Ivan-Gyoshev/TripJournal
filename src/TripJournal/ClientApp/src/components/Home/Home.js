@@ -14,7 +14,7 @@ export class Home extends Component {
         <h3 className="centered-sub">
           A place where you will find lots of and different adventures
         </h3>
-        <Link tag={Link} className="text-white explore" to="/all">Explore</Link>
+        <Link tag={Link} className="text-white explore" to="/all-trips">Explore</Link>
       </div>
     );
   }

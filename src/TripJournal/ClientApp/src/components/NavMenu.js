@@ -3,6 +3,8 @@ import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from '
 import { Link } from 'react-router-dom';
 import { LoginMenu } from './api-authorization/LoginMenu';
 import './NavMenu.css';
+import authService from '../components/api-authorization/AuthorizeService';
+
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -15,7 +17,7 @@ export class NavMenu extends Component {
       collapsed: true
     };
   }
-
+  
   toggleNavbar () {
     this.setState({
       collapsed: !this.state.collapsed
@@ -29,19 +31,32 @@ export class NavMenu extends Component {
           <NavbarBrand tag={Link} to="/" className='text-white logo'>TripJournal</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-            <ul className="navbar-nav flex-grow">
-              <NavItem className='nav-item'>
-                <NavLink tag={Link} className="text-white nav-button" to="/">Home</NavLink>
-              </NavItem>
-              <NavItem className='nav-item'>
-                <NavLink tag={Link} className="text-white nav-button" to="/add">Add Trip</NavLink>
-              </NavItem>
-              <NavItem className='nav-item'>
-                <NavLink tag={Link} className="text-white nav-button" to="/all-trips">All Trips</NavLink>
-              </NavItem>
-              <LoginMenu>
-              </LoginMenu>
-            </ul>
+            { authService.isAuthenticated()
+             ?  <ul className="navbar-nav flex-grow user">
+                  <NavItem className='nav-item'>
+                    <NavLink tag={Link} className="text-white nav-button" to="/">Home</NavLink>
+                  </NavItem>
+                  <NavItem className='nav-item'>
+                    <NavLink tag={Link} className="text-white nav-button" to="/all-trips">All Trips</NavLink>
+                  </NavItem>
+                  <NavItem className='nav-item'>
+                    <NavLink tag={Link} className="text-white nav-button" to="/add">Add Trip</NavLink>
+                  </NavItem>
+                  <LoginMenu>
+                  </LoginMenu>
+                </ul>
+            : <ul className="navbar-nav flex-grow guest">
+                <NavItem className='nav-item'>
+                   <NavLink tag={Link} className="text-white nav-button" to="/">Home</NavLink>
+                </NavItem>
+                <NavItem className='nav-item'>
+                  <NavLink tag={Link} className="text-white nav-button" to="/all-trips">All Trips</NavLink>
+                </NavItem>
+                <LoginMenu>
+                </LoginMenu>
+              </ul>
+            }
+            
           </Collapse>
         </Navbar>
       </header>

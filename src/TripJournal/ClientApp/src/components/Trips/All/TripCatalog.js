@@ -10,7 +10,6 @@ export const TripCatalog = () => {
     tripService
       .getAllTrips()
       .then((result) => {
-        console.log(result);
         setTrips(result);
       })
       .catch((err) => {
@@ -23,7 +22,7 @@ export const TripCatalog = () => {
         <h1 className="trips-catalog-heading">Trips</h1>
         <div className="trips-catalog">
             { trips.length > 0
-                    ? trips.map(x => <TripCard key={x._id} trip={x} />)
+                    ? trips.map(x => <TripCard key={x.id} trip={x} />)
                     : <h3 className="no-trips">No trips yet</h3>
             }
         </div>

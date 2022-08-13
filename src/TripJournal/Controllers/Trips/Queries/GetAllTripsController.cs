@@ -21,6 +21,7 @@ namespace TripJournal.Web.Controllers.Trips.Queries
 
             List<AllTripsResponseModel> result = trips.Select(trip => new AllTripsResponseModel
             {
+                Id  = trip.Id,
                 Title = trip.Title,
                 Description = trip.Description,
                 ImageUrl = trip.ImageUrl,

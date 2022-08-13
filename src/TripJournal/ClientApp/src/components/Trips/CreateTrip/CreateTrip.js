@@ -16,7 +16,7 @@ export const CreateTrip = () => {
       <form id="create" onSubmit={onSubmit}>
         <fieldset>
           <legend>
-            <span class="dot"></span>Add Trip
+            <span className="dot"></span>Add Trip
           </legend>
           <label htmlFor="title">Title:</label>
           <input
@@ -32,7 +32,7 @@ export const CreateTrip = () => {
             name="location"
             placeholder="Enter location..."
           />
-          <label for="imageUrl">Image:</label>
+          <label htmlFor="imageUrl">Image:</label>
           <input
             type="text"
             id="imageUrl"

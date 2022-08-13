@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using TripJournal.Services;
+using TripJournal.Web.Controllers.Trips.Models.ResponseModel;
 
 namespace TripJournal.Web.Controllers.Trips.Queries
 {
@@ -24,7 +25,9 @@ namespace TripJournal.Web.Controllers.Trips.Queries
                 return NotFound();
             }
 
-            return Ok(trip);
+            var response = new TripDetailsResponseModel(trip.Id, trip.CreatorId, trip.Title, trip.Location, trip.Type.ToString(), trip.Description, trip.ImageUrl);
+
+            return Ok(response);
         }
     }
 }
