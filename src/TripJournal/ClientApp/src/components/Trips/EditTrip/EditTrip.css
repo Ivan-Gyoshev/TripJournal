@@ -1,4 +1,4 @@
-.create-page form{
+.edit-page form{
 	max-width: 500px;
 	padding: 10px 20px;
 	background: #f4f7f8;
@@ -8,24 +8,24 @@
 	border-radius: 8px;
 	font-family: Georgia, "Times New Roman", Times, serif;
 }
-.create-page fieldset{
+.edit-page fieldset{
 	border: none;
 }
-.create-page form label {
+.edit-page form label {
 	display: block;
 	margin-bottom: 8px;
 	font-family: Georgia, "Times New Roman", Times, serif;
 }
-.create-page form input[type="text"],
-.create-page form input[type="date"],
-.create-page form input[type="datetime"],
-.create-page form input[type="email"],
-.create-page form input[type="number"],
-.create-page form input[type="search"],
-.create-page form input[type="time"],
-.create-page form input[type="url"],
-.create-page form textarea,
-.create-page form select {
+.edit-page form input[type="text"],
+.edit-page form input[type="date"],
+.edit-page form input[type="datetime"],
+.edit-page form input[type="email"],
+.edit-page form input[type="number"],
+.edit-page form input[type="search"],
+.edit-page form input[type="time"],
+.edit-page form input[type="url"],
+.edit-page form textarea,
+.edit-page form select {
 	font-family: Georgia, "Times New Roman", Times, serif;
 	background: rgba(255,255,255,.1);
 	border: none;
@@ -44,24 +44,24 @@
 	box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
 	margin-bottom: 30px;
 }
-.create-page form input[type="text"]:focus,
-.create-page form input[type="date"]:focus,
-.create-page form input[type="datetime"]:focus,
-.create-page form input[type="email"]:focus,
-.create-page form input[type="number"]:focus,
-.create-page form input[type="search"]:focus,
-.create-page form input[type="time"]:focus,
-.create-page form input[type="url"]:focus,
-.create-page form textarea:focus,
-.create-page form select:focus{
+.edit-page form input[type="text"]:focus,
+.edit-page form input[type="date"]:focus,
+.edit-page form input[type="datetime"]:focus,
+.edit-page form input[type="email"]:focus,
+.edit-page form input[type="number"]:focus,
+.edit-page form input[type="search"]:focus,
+.edit-page form input[type="time"]:focus,
+.edit-page form input[type="url"]:focus,
+.edit-page form textarea:focus,
+.edit-page form select:focus{
 	background: #d2d9dd;
 }
-.create-page form select{
+.edit-page form select{
 	-webkit-appearance: menulist-button;
 	height:35px;
 }
-.create-page form .dot {
-	background: #1abc9c;
+.edit-page form .dot {
+	background: #e5cf28;
 	color: #fff;
 	height: 30px;
 	width: 30px;
@@ -74,25 +74,25 @@
 	border-radius: 15px 15px 15px 0px;
 }
 
-.create-page form input[type="submit"],
-.create-page form input[type="button"]
+.edit-page form input[type="submit"],
+.edit-page form input[type="button"]
 {
 	position: relative;
 	display: block;
 	padding: 19px 39px 18px 39px;
 	color: #FFF;
 	margin: 0 auto;
-	background: #1abc9c;
+	background: #e5cf28;
 	font-size: 18px;
 	text-align: center;
 	font-style: normal;
 	width: 100%;
-	border: 1px solid #16a085;
+	border: 1px solid #74691b;
 	border-width: 1px 1px 3px;
 	margin-bottom: 10px;
 }
-.create-page form input[type="submit"]:hover,
-.create-page form input[type="button"]:hover
+.edit-page form input[type="submit"]:hover,
+.edit-page form input[type="button"]:hover
 {
-	background: #109177;
+	background: #675f14;
 }

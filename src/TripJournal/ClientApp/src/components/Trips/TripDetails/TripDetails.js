@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import * as tripService from "../../../services/tripService";
 import authService from "../../../components/api-authorization/AuthorizeService";
@@ -8,46 +8,67 @@ export const TripDetails = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [trip, setTrip] = useState([]);
-
+  const [currentUser, setCurrentUser] = useState();
   const id = searchParams.get("id");
 
+  const setTripData = async () => {
+    const trip = await tripService.getTripDetails(id);
+    setTrip(trip);
+  };
+
+  const setUserInfo = async () => {
+    const user = await authService.getUser();
+    setCurrentUser(user.sub);
+  };
+
   useEffect(() => {
-    tripService
-      .getTripDetails(id)
-      .then((result) => {
-        setTrip(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setTripData();
+    setUserInfo();
   }, []);
 
-  const gameDeleteHandler = () =>{
-    const confirmation = window.confirm('If you continue you will delete this trip.');
+  const isCreator = currentUser === trip.creatorId;
 
-    if(confirmation) {
-        tripService.deleteTrip(id)
-        .then(() => {
-            navigate('/all-trips')
-        })
+  const tripDeleteHandler = () => {
+    const confirmation = window.confirm(
+      "If you continue you will delete this trip."
+    );
+
+    if (confirmation) {
+      tripService.deleteTrip(id).then(() => {
+        navigate("/all-trips");
+      });
     }
-  }
+  };
 
   return (
     <section className="details-container">
       <h1>{trip.title}</h1>
-      <p class="subheading">Location: {trip.location}</p>
+      <p className="subheading">Location: {trip.location}</p>
       <section className="img-container">
-        <article class="img-content">
+        <article className="img-content">
           <img src={trip.imageUrl} alt="img" />
         </article>
-        <article class="content">
+        <article className="content">
           <h4>Destination type: {trip.type}</h4>
           <p>{trip.description}</p>
+          {isCreator && (
+        <>
+          <Link
+            to={`/trip-edit?id=${trip.id}`}
+            className="action-button primary edit"
+          >
+            Edit
+          </Link>
+          <button
+            onClick={tripDeleteHandler}
+            className="action-button primary delete"
+          >
+            Delete
+          </button>
+        </>
+      )}
         </article>
-      </section>
-      <Link to={`/trips/edit?id=${trip.id}`} class="action-button primary edit">Edit</Link >
-      <button onClick={gameDeleteHandler} class="action-button primary delete">Delete</button>
+      </section>     
       <p class="border"></p>
     </section>
   );
