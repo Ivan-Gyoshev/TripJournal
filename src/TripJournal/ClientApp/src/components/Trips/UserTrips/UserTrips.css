@@ -1,0 +1,13 @@
+.trips-catalog{
+    display: flex;
+}
+
+.trips-catalog-heading {
+    margin-left: 42%;
+    max-width: 15%;
+    align-items: center;
+    text-align: center;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 3em;
+    border-bottom: 2px solid black;
+}

@@ -93,7 +93,7 @@ export class NavMenu extends Component {
                     <NavLink
                       tag={Link}
                       className="text-white nav-button"
-                      to="/add"
+                      to="/user-trips"
                     >
                       My Trips
                     </NavLink>
