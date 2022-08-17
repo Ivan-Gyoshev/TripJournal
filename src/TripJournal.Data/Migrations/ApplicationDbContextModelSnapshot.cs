@@ -410,7 +410,7 @@ namespace TripJournal.Data.Migrations
 
                     b.HasIndex("TripId");
 
-                    b.ToTable("Like");
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("TripJournal.Data.DataModels.Trip", b =>

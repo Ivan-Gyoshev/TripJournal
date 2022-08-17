@@ -8,6 +8,7 @@ export const TripDetails = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [trip, setTrip] = useState([]);
+  const [likes, setLikes] = useState();
   const [isLiked, setIsLiked] = useState();
   const [currentUser, setCurrentUser] = useState();
   const id = searchParams.get("id");
@@ -22,9 +23,21 @@ export const TripDetails = () => {
     setCurrentUser(user.sub);
   };
 
+  const setLikedState = async () => {
+    const hasUserLiked = await tripService.getHasUserLikedTrip(id);
+    hasUserLiked ? setIsLiked(true) : setIsLiked(false);
+  }
+
+  const setLikesCount = async () => {
+    const likesCount = await tripService.getTripLikesCount(id);
+    setLikes(likesCount);
+  }
+
   useEffect(() => {
     setTripData();
     setUserInfo();
+    setLikedState();
+    setLikesCount();
   }, []);
 
   const isCreator = currentUser === trip.creatorId;
@@ -50,6 +63,9 @@ export const TripDetails = () => {
 
     await tripService.likeTrip(likeObj);
     setIsLiked(true);
+    let currentLikes = likes;
+    currentLikes++;
+    setLikes(currentLikes);
   };
 
   const onUnlikeHandler = async (e) => {
@@ -61,6 +77,9 @@ export const TripDetails = () => {
 
     await tripService.unlikeTrip(unlikeObj);
     setIsLiked(false);
+    let currentLikes = likes;
+    currentLikes--;
+    setLikes(currentLikes);
   };
 
   return (
@@ -74,7 +93,12 @@ export const TripDetails = () => {
         <article className="content">
           <h4>Destination type: {trip.type}</h4>
           <p>{trip.description}</p>
-          <p>Likes: {trip.likesCount}</p>
+          <p>Likes: 
+            { likes 
+            ? <>{likes}</>
+            : <>0</>
+            }
+            </p>
           {isCreator && (
             <>
               <Link
@@ -93,14 +117,20 @@ export const TripDetails = () => {
           )}
         </article>
       </section>
-      <div className="likes">
-        <button onClick={onLikeHandler} className="like">
-          Like
-        </button>
-        <button onClick={onUnlikeHandler} className="unlike">
-          Unlike
-        </button>
-      </div>
+      <>
+      { currentUser &&
+        <div className="likes">
+          { isLiked 
+          ?  <button onClick={onUnlikeHandler} className="unlike">
+               Unlike
+             </button>
+          : <button onClick={onLikeHandler} className="like">
+              Like
+            </button>
+          }
+        </div>
+      }
+      </>
       <p className="border"></p>
     </section>
   );

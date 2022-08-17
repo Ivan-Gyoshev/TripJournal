@@ -123,24 +123,28 @@ namespace TripJournal.Services
             {
                 _likesRepository.Delete(like);
                 await _likesRepository.SaveChangesAsync().ConfigureAwait(false);
+
+                var tripToUnlike = await GetTripById(tripId).ConfigureAwait(false);
+                tripToUnlike.Likes.Remove(like);
+
+                await _tripsRepository.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
         public int GetTripLikesCount(int tripId)
         {
-            return _tripsRepository.GetAll()
-                .Where(x => x.Id == tripId)
-                .FirstOrDefault()
-                .Likes.Count;
+            var likes = _likesRepository.GetAll()
+                .Where(x => x.TripId == tripId).ToList();
+
+            return likes.Count;
         }
 
         public bool HasUserLikedTrip(int tripId, string userId)
         {
-            return _tripsRepository.GetAll()
-                .Where(x => x.Id == tripId)
-                .FirstOrDefault()
-                    .Likes.Where(x => x.UserId.Equals(userId))
-                          .Any();
+            var likes = _likesRepository.GetAll()
+                 .Where(x => x.TripId == tripId).ToList();
+
+            return likes.Where(x => x.UserId.Equals(userId)).Any();
         }
 
         public async Task<Like> GetLike(string userId, int tripId)
@@ -150,6 +154,5 @@ namespace TripJournal.Services
                 .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
         }
-
     }
 }

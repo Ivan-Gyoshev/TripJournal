@@ -18,7 +18,7 @@ namespace TripJournal.Web.Controllers.Trips.Commands
         }
 
         [HttpGet, Route("LikeForUser")]
-        public IActionResult LikeForUser(int tripId)
+        public IActionResult LikeForUser([FromQuery] int tripId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -28,7 +28,7 @@ namespace TripJournal.Web.Controllers.Trips.Commands
         }
 
         [HttpGet, Route("TripLikes")]
-        public IActionResult TripLikes(int tripId)
+        public IActionResult TripLikes([FromQuery] int tripId)
         {
             var count = _tripsDatabaseProvider.GetTripLikesCount(tripId);
 

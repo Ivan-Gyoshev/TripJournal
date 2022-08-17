@@ -12,8 +12,8 @@ using TripJournal.Data;
 namespace TripJournal.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220809042202_EditTripModel")]
-    partial class EditTripModel
+    [Migration("20220817180944_UpdateDbModels")]
+    partial class UpdateDbModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -388,6 +388,33 @@ namespace TripJournal.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("TripJournal.Data.DataModels.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("TripId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TripId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("TripJournal.Data.DataModels.Trip", b =>
                 {
                     b.Property<int>("Id")
@@ -499,11 +526,25 @@ namespace TripJournal.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TripJournal.Data.DataModels.Like", b =>
+                {
+                    b.HasOne("TripJournal.Data.DataModels.Trip", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TripJournal.Data.DataModels.ApplicationUser", b =>
                 {
                     b.Navigation("Claims");
 
                     b.Navigation("Logins");
+                });
+
+            modelBuilder.Entity("TripJournal.Data.DataModels.Trip", b =>
+                {
+                    b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618
         }

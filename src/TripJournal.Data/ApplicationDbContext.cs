@@ -22,6 +22,8 @@ namespace TripJournal.Data
 
         public DbSet<Trip> Trips { get; set; }
 
+        public DbSet<Like> Likes { get; set; }
+
         public override int SaveChanges() => base.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
