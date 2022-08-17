@@ -8,9 +8,9 @@ import {
   NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { LoginMenu } from "./api-authorization/LoginMenu";
+import { LoginMenu } from "../api-authorization/LoginMenu";
 import "./NavMenu.css";
-import authService from "../components/api-authorization/AuthorizeService";
+import authService from "../api-authorization/AuthorizeService";
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -84,7 +84,7 @@ export class NavMenu extends Component {
                     <NavLink
                       tag={Link}
                       className="text-white nav-button"
-                      to="/add"
+                      to="/liked-trips"
                     >
                       Liked Trips
                     </NavLink>

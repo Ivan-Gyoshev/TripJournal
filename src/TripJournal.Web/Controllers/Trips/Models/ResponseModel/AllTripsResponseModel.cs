@@ -13,5 +13,7 @@
         public string Type { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public string CreatedOn { get; set; }
     }
 }

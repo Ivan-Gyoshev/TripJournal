@@ -5,6 +5,7 @@ import { TripCatalog } from "./components/Trips/All/TripCatalog";
 import { TripDetails } from "./components/Trips/TripDetails/TripDetails";
 import { EditTrip } from "./components/Trips/EditTrip/EditTrip";
 import { UserTrips } from "./components/Trips/UserTrips/UserTrips";
+import { UserLikedTrips } from "./components/Trips/UserLikedTrips/UserLikedTrips";
 
 const AppRoutes = [
   {
@@ -29,12 +30,17 @@ const AppRoutes = [
   {
     path: "/trip-details",
     requireAuth: false,
-    element: <TripDetails />
+    element: <TripDetails />,
   },
   {
     path: "/trip-edit",
     requireAuth: true,
-    element: <EditTrip />
+    element: <EditTrip />,
+  },
+  {
+    path: "/liked-trips",
+    requireAuth: true,
+    element: <UserLikedTrips/>
   },
   ...ApiAuthorzationRoutes,
 ];

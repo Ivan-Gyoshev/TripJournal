@@ -97,6 +97,18 @@ namespace TripJournal.Services
             return true;
         }
 
+        public async Task<List<Trip>> GetAllLikedTripsByUser(string userId)
+        {
+            List<Like> likesForUser = await _likesRepository.GetAll().Where(x => x.UserId.Equals(userId)).ToListAsync().ConfigureAwait(false);
+
+            var result = new List<Trip>();
+
+            foreach (var like in likesForUser)
+                result.Add(await _tripsRepository.GetAll().Where(x => x.Id == like.TripId).FirstOrDefaultAsync().ConfigureAwait(false));
+
+            return result;
+        }
+
         public async Task SetTripAsLikedAsync(int tripId, string userId)
         {
             Like like;
