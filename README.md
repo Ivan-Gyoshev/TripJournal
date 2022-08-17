@@ -1,6 +1,6 @@
 # TripJournal
 
-<p>TripJournal is a website where people can share different destinations, that they have visited with other people.</p>
+<p>TripJournal is a website where people can share different destinations, that they have visited, with other people.</p>
 
 ###### Overview:
 
