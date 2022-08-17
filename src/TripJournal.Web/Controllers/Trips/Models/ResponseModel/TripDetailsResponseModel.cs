@@ -2,7 +2,7 @@
 {
     public class TripDetailsResponseModel
     {
-        public TripDetailsResponseModel(int id, string creatorId, string title, string location, string type, string description, string imageUrl)
+        public TripDetailsResponseModel(int id, string creatorId, string title, string location, string type, string description, string imageUrl, int likesCount)
         {
             Id = id;
             CreatorId = creatorId;
@@ -11,6 +11,7 @@
             Type = type;
             Description = description;
             ImageUrl = imageUrl;
+            LikesCount = likesCount;
         }
 
         public int Id { get; set; }
@@ -26,5 +27,7 @@
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public int LikesCount { get; set; }
     }
 }

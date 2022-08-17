@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import * as tripService from "../../../services/tripService";
 import authService from "../../../components/api-authorization/AuthorizeService";
@@ -8,6 +8,7 @@ export const TripDetails = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [trip, setTrip] = useState([]);
+  const [isLiked, setIsLiked] = useState();
   const [currentUser, setCurrentUser] = useState();
   const id = searchParams.get("id");
 
@@ -40,6 +41,28 @@ export const TripDetails = () => {
     }
   };
 
+  const onLikeHandler = async (e) => {
+    e.preventDefault();
+
+    const likeObj = {
+      id: id
+    }
+
+    await tripService.likeTrip(likeObj);
+    setIsLiked(true);
+  };
+
+  const onUnlikeHandler = async (e) => {
+    e.preventDefault();
+
+    const unlikeObj = {
+      id: id
+    }
+
+    await tripService.unlikeTrip(unlikeObj);
+    setIsLiked(false);
+  };
+
   return (
     <section className="details-container">
       <h1>{trip.title}</h1>
@@ -51,25 +74,34 @@ export const TripDetails = () => {
         <article className="content">
           <h4>Destination type: {trip.type}</h4>
           <p>{trip.description}</p>
+          <p>Likes: {trip.likesCount}</p>
           {isCreator && (
-        <>
-          <Link
-            to={`/trip-edit?id=${trip.id}`}
-            className="action-button primary edit"
-          >
-            Edit
-          </Link>
-          <button
-            onClick={tripDeleteHandler}
-            className="action-button primary delete"
-          >
-            Delete
-          </button>
-        </>
-      )}
+            <>
+              <Link
+                to={`/trip-edit?id=${trip.id}`}
+                className="action-button primary edit"
+              >
+                Edit
+              </Link>
+              <button
+                onClick={tripDeleteHandler}
+                className="action-button primary delete"
+              >
+                Delete
+              </button>
+            </>
+          )}
         </article>
-      </section>     
-      <p class="border"></p>
+      </section>
+      <div className="likes">
+        <button onClick={onLikeHandler} className="like">
+          Like
+        </button>
+        <button onClick={onUnlikeHandler} className="unlike">
+          Unlike
+        </button>
+      </div>
+      <p className="border"></p>
     </section>
   );
 };

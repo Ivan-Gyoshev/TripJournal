@@ -10,10 +10,12 @@ namespace TripJournal.Services
     public class TripsDatabaseProvider
     {
         private readonly IDeletableEfRepository<Trip> _tripsRepository;
+        private readonly IRepository<Like> _likesRepository;
 
-        public TripsDatabaseProvider(IDeletableEfRepository<Trip> tripsRepository)
+        public TripsDatabaseProvider(IDeletableEfRepository<Trip> tripsRepository, IRepository<Like> likesRepository)
         {
             _tripsRepository = tripsRepository;
+            _likesRepository = likesRepository;
         }
 
         public async Task<int> CreateTripAsync(CreateTripDTO model)
@@ -94,5 +96,60 @@ namespace TripJournal.Services
 
             return true;
         }
+
+        public async Task SetTripAsLikedAsync(int tripId, string userId)
+        {
+            Like like;
+
+            like = await GetLike(userId, tripId).ConfigureAwait(false);
+            if (like is null)
+            {
+                like = new Like(tripId, userId);
+                await _likesRepository.AddAsync(like).ConfigureAwait(false);
+                await _likesRepository.SaveChangesAsync().ConfigureAwait(false);
+
+                var tripToLike = await GetTripById(tripId).ConfigureAwait(false);
+                tripToLike.Likes.Add(like);
+
+                await _tripsRepository.SaveChangesAsync().ConfigureAwait(false);
+            }
+        }
+
+        public async Task RemoveTripLikeAsync(int tripId, string userId)
+        {
+            var like = await GetLike(userId, tripId).ConfigureAwait(false);
+
+            if (like is not null)
+            {
+                _likesRepository.Delete(like);
+                await _likesRepository.SaveChangesAsync().ConfigureAwait(false);
+            }
+        }
+
+        public int GetTripLikesCount(int tripId)
+        {
+            return _tripsRepository.GetAll()
+                .Where(x => x.Id == tripId)
+                .FirstOrDefault()
+                .Likes.Count;
+        }
+
+        public bool HasUserLikedTrip(int tripId, string userId)
+        {
+            return _tripsRepository.GetAll()
+                .Where(x => x.Id == tripId)
+                .FirstOrDefault()
+                    .Likes.Where(x => x.UserId.Equals(userId))
+                          .Any();
+        }
+
+        public async Task<Like> GetLike(string userId, int tripId)
+        {
+            return await _likesRepository.GetAll()
+                .Where(l => l.UserId.Equals(userId) && l.TripId == tripId)
+                .FirstOrDefaultAsync()
+                .ConfigureAwait(false);
+        }
+
     }
 }

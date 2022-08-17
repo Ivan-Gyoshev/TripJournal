@@ -15,3 +15,9 @@ export const getAllTripsForUser = () => request.get(`${url}/trips/userTrips`);
 
 export const getTripDetails = (id) =>
   request.get(`${url}/trips/details?id=${id}`);
+
+export const likeTrip = (id) => request.post(`${url}/trips/like`, id);
+
+export const unlikeTrip = (id) => request.post(`${url}/trips/unlike`, id);
+
+export const getLike = (id) => request.get(`${url}/trips/likeState?tripId=${id}`);

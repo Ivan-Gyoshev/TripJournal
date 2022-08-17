@@ -25,7 +25,9 @@ namespace TripJournal.Web.Controllers.Trips.Queries
                 return NotFound();
             }
 
-            var response = new TripDetailsResponseModel(trip.Id, trip.CreatorId, trip.Title, trip.Location, trip.Type.ToString(), trip.Description, trip.ImageUrl);
+            var tripLikesCount = _tripsProvider.GetTripLikesCount(id);
+
+            var response = new TripDetailsResponseModel(trip.Id, trip.CreatorId, trip.Title, trip.Location, trip.Type.ToString(), trip.Description, trip.ImageUrl, tripLikesCount);
 
             return Ok(response);
         }

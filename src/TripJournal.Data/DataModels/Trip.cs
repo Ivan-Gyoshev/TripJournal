@@ -7,6 +7,7 @@ namespace TripJournal.Data.DataModels
         public Trip()
         {
             Participants = new List<ApplicationUser>();
+            Likes = new List<Like>();
         }
 
         public string CreatorId { get; set; }
@@ -22,5 +23,7 @@ namespace TripJournal.Data.DataModels
         public TripType Type { get; set; }
 
         public List<ApplicationUser> Participants { get; set; }
+
+        public List<Like> Likes { get; set; }
     }
 }

@@ -93,3 +93,30 @@ span {
     margin-left: 15%;
     margin-right: 60%;
 }
+
+.like {
+    border: 1px solid greenyellow;
+    background-color:rgba(157, 236, 144, 0.331);
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin-right: 5px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.unlike{
+    border: 1px solid rgb(193, 43, 45);
+    background-color:rgba(245, 121, 121, 0.331);
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin-right: 5px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.like:hover, .unlike:hover {
+    transform:scale(1.02);
+    box-shadow:2px 2px 5px rgba(0,0,0,0.20), inset 0 0 0 99999px rgba(0,0,0,0.2);
+  }
