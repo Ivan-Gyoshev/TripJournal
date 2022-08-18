@@ -18,14 +18,20 @@ export const UserTrips = () => {
   }, []);
 
   return (
+    <>      
+    <div className="heading-usertrips">
+      <h1 className="heading">
+        <strong>My trips</strong>The destinations you love.
+      </h1>
+    </div>
     <section id="catalog">
-        <h1 className="trips-catalog-heading">Your Trips</h1>
         <div className="trips-catalog">
             { userTrips.length > 0
                     ? userTrips.map(x => <TripCard key={x.id} trip={x} />)
-                    : <h3 className="no-trips">You have not post any trips yet.</h3>
+                    : <h3 className="no-trips-user">You have not post any trips yet.</h3>
             }
         </div>
     </section>
+    </>
   )
 };

@@ -54,9 +54,9 @@ export class NavMenu extends Component {
           container
           light
         >
-          <NavbarBrand tag={Link} to="/" className="text-white logo">
-            TripJournal
-          </NavbarBrand>
+          <Link tag={Link} to="/" className="text-white logo">
+            Trip Journal
+          </Link>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
           <Collapse
             className="d-sm-inline-flex flex-sm-row-reverse"

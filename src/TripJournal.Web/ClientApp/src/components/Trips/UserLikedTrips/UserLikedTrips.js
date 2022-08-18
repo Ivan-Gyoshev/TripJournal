@@ -18,8 +18,13 @@ export const UserLikedTrips = () => {
   }, []);
 
   return (
+    <>      
+    <div className="heading-liked">
+      <h1 className="heading">
+        <strong>Liked Trips</strong>All destinations that you like.
+      </h1>
+    </div>
     <section id="catalog">
-        <h1 className="trips-catalog-heading">Trips</h1>
         <div className="trips-catalog">
             { trips.length > 0
                     ? trips.map(x => <TripCard key={x.id} trip={x} />)
@@ -27,5 +32,6 @@ export const UserLikedTrips = () => {
             }
         </div>
     </section>
+    </>
   )
 };

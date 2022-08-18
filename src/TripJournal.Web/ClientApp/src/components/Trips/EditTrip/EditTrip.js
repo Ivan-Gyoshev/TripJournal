@@ -90,8 +90,8 @@ const descriptionChangeHandler = (e) =>{
   let currentDescription = e.target.value;
   if(currentDescription.length < 10){
       setErrors(state => ({...state, description: 'Trip description should be at least 10 characters!'}))
-  } else if (currentDescription.length > 300) {
-      setErrors(state => ({...state, description: 'Trip description should be up to 300 characters long!'}))
+  } else if (currentDescription.length > 500) {
+      setErrors(state => ({...state, description: 'Trip description should be up to 500 characters long!'}))
   } else {
       setErrors(state => ({...state, description: ""}))
   }

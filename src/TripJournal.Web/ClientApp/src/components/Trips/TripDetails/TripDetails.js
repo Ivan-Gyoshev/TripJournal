@@ -93,7 +93,7 @@ export const TripDetails = () => {
         <article className="content">
           <h4>Destination type: {trip.type}</h4>
           <p>{trip.description}</p>
-          <p>Likes: 
+          <p><strong>Likes: </strong>
             { likes 
             ? <>{likes}</>
             : <>0</>

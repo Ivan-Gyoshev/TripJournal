@@ -18,14 +18,20 @@ export const TripCatalog = () => {
   }, []);
 
   return (
+    <>      
+    <div className="heading-all">
+      <h1 className="heading">
+        <strong>Trips Catalog</strong>Find your destination.
+      </h1>
+    </div>
     <section id="catalog">
-        <h1 className="trips-catalog-heading">Trips</h1>
-        <div className="trips-catalog">
-            { trips.length > 0
-                    ? trips.map(x => <TripCard key={x.id} trip={x} />)
-                    : <h3 className="no-trips">No trips yet</h3>
-            }
-        </div>
+      <div className="trips-catalog">
+        {trips.length > 0 
+        ? trips.map((x) => <TripCard key={x.id} trip={x} />)
+        : <h3 className="no-trips">No trips yet</h3>
+        }
+      </div>
     </section>
-  )
+    </>
+  );
 };

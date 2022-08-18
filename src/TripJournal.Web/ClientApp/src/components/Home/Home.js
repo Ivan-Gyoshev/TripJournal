@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import homescreen from "./home-screen.jpg";
+import homescreen from "./home-bg.jpg";
 import { Link } from 'react-router-dom';
 import "./Home.css";
 

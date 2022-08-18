@@ -1,13 +1,35 @@
 .trips-catalog{
     display: flex;
+    flex-wrap: wrap;
 }
 
-.trips-catalog-heading {
-    margin-left: 42%;
-    max-width: 15%;
-    align-items: center;
-    text-align: center;
-    font-family: "Trebuchet MS", sans-serif;
-    font-size: 3em;
-    border-bottom: 2px solid black;
+.heading-liked {
+    background:url(http://www.dlocc.com/articles/wp-content/uploads/2010/01/Mozilla-Background.png) no-repeat top left;
+}
+   
+.heading-liked h1 {
+    font-family:Georgia,serif;
+    color:#666666;
+    font-size:30px;
+    line-height:1em;
+    margin: 2% 0 0 34%;
+    }
+   
+    .heading-liked h1 strong{
+    color:#139609;
+    display:block;
+    font-size:85px;
+    font-weight:normal;
+    letter-spacing:-3.5px;
+    line-height:1em;
+    }
+    
+.no-trips{
+    font-family:Georgia,serif;
+    margin: 5% 0 0 37%;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-radius: 20px;
+    padding: 3%;
 }
