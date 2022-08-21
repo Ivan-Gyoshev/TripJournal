@@ -1,8 +1,8 @@
 import * as React from "react";
-import * as tripService from "../../../services/tripService";
 import { useState, useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
 import { Alert } from 'reactstrap';
+import { useSearchParams, useNavigate } from "react-router-dom";
+import * as tripService from "../../../services/tripService";
 import "./EditTrip.css";
 
 export const EditTrip = () => {
@@ -27,14 +27,12 @@ export const EditTrip = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const tripData = Object.fromEntries(new FormData(e.target));
-    
       // In case of wrong input, we should not make API call.
-      if(canSend(tripData)){
-        
-      tripData.tripId = id;
-  
-      tripService.editTrip(tripData).then(() => {
-        navigate(`/trip-details?id=${id}`);
+      if(canSend(tripData)){        
+        tripData.tripId = id;
+        tripService.editTrip(tripData)
+        .then(() => {
+          navigate(`/trip-details?id=${id}`);
       });
     }
   };
@@ -62,7 +60,8 @@ export const EditTrip = () => {
   }
 
 
-  const titleChangeHandler = (e) =>{
+   // Returns wether all the requirements for creating a trip are met.
+const titleChangeHandler = (e) =>{
     let currentTitle = e.target.value;
     if(currentTitle.length < 3){
         setErrors(state => ({...state, title: 'Trip title should be at least 3 characters!'}))
@@ -71,10 +70,9 @@ export const EditTrip = () => {
     } else {
         setErrors(state => ({...state, title: ""}))
     }
- }
+}
 
- const locationChangeHandler = (e) =>{
-
+const locationChangeHandler = (e) =>{
   let currentLocation = e.target.value;
   if(currentLocation.length < 3){
       setErrors(state => ({...state, location: 'Trip location should be at least 3 characters!'}))
@@ -86,7 +84,6 @@ export const EditTrip = () => {
 }
 
 const descriptionChangeHandler = (e) =>{
-
   let currentDescription = e.target.value;
   if(currentDescription.length < 10){
       setErrors(state => ({...state, description: 'Trip description should be at least 10 characters!'}))
@@ -157,6 +154,8 @@ const imageUrlChangeHandler = (e) =>{
             <option value="seaside">Seaside</option>
             <option value="mountainside">Mountainside</option>
             <option value="cities">Cities</option>
+            <option value="historical">Historical</option>
+            <option value="islands">Islands</option>
           </select>
         </fieldset>
         <input className="btn submit" type="submit" value="Edit Trip" />

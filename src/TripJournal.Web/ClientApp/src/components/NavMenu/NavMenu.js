@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   Collapse,
   Navbar,
-  NavbarBrand,
   NavbarToggler,
   NavItem,
   NavLink,

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import * as tripService from "../../../services/tripService";
-import { useNavigate } from "react-router-dom";
 import { Alert } from 'reactstrap';
+import { useNavigate } from "react-router-dom";
+import * as tripService from "../../../services/tripService";
 import "./CreateTrip.css";
 
 export const CreateTrip = () => {
@@ -13,14 +13,14 @@ export const CreateTrip = () => {
 
     const tripData = Object.fromEntries(new FormData(e.target));
     // In case of wrong input, we should not make API call.
-    if(canSend(tripData)){
-          
+    if(canSend(tripData)){          
       tripService.createTrip(tripData).then(() => {
         navigate(`/all-trips`);
       });
     }
-  };
+  }; 
 
+  // Returns wether all the requirements for creating a trip are met.
   const canSend = (tripData) =>{
     let resultFromValidations = true;
     let resultFromFormData = true;
@@ -43,6 +43,7 @@ export const CreateTrip = () => {
     return resultFromValidations && resultFromFormData;
   }
   
+  // Input validations for the form data with error messages.
   const titleChangeHandler = (e) =>{
     let currentTitle = e.target.value;
     if(currentTitle.length < 3){
@@ -134,7 +135,9 @@ const imageUrlChangeHandler = (e) =>{
             <option></option>
             <option value="seaside">Seaside</option>
             <option value="mountainside">Mountainside</option>
-            <option value="cities">Cities</option>
+            <option value="cities">Cities</option>            
+            <option value="historical">Historical</option>
+            <option value="islands">Islands</option>
           </select>
         </fieldset>
         <input className="btn submit" type="submit" value="Add Trip" />
